@@ -1,2 +1,46 @@
 # AArkhipenko.Keycloak
-nuget-проект с настройками для работы с keycloak
+
+Nuget-проект с настройками для работы с keycloak
+
+## Раздел с настройками
+
+Для конфигурирования программы для работы с keycloak, провайдер натсроек должен иметься раздел с настройками следующего вида:
+```json
+...
+"KeycloakSettings": {
+	// сервер авторизации (обязательно)
+	"Authority": "http://{keycloak_host}/realms/{realm}",
+	// адрес валидации токена (обязательно)
+	"MetadataAddress": "http://{keycloak_host}/realms/{realm}/.well-known/openid-configuration",
+	// Признак необходимости валидации https запросов (по умолчанию false)
+	"IsRequireHttpsMetadata": "false",
+	// Признак необходимости проверки издателя токена (по умолчанию false)
+	"IsValidateIssuer": "true",
+	// Список допустимых издателей токенов
+	"ValidIssuers": [
+		"http://{keycloak_host}/realms/{realm}"
+	],
+	// Признак необходимости проверки потребителя токена (по умолчанию false)
+	"IsValidateAudience": "true",
+	// Перечень допустимых потребителей токена
+	"ValidAudiences": [
+		"{client_for_service}"
+	],
+	// Настройки конкретного сервиса
+	"ServiceSettings": {
+		// ИД клиента для сервиса
+		"Service": "{client_for_service}",
+		// Перечень ролей, которые могут контроллироваться в программе
+		"Roles": [
+			{
+				// Ключ роли
+				"Key": "AdminRole",
+				// Значение роли
+				"Value": "{admin_role_for_client}"
+			},
+			...
+		]
+	}
+},
+...
+```
