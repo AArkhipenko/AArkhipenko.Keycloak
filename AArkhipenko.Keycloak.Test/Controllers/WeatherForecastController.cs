@@ -19,9 +19,20 @@ public class WeatherForecastController : LoggingControllerBase
     {
     }
 
-    [HttpGet]
+    [HttpGet("for-user")]
     [Authorize("UserRole")]
-    public IEnumerable<WeatherForecast> Get()
+    public IEnumerable<WeatherForecast> GetForUser()
+    {
+        using (base.BeginLoggingScope())
+        {
+            base.Logger.LogInformation("Get");
+            return GetArray();
+        }
+    }
+
+    [HttpGet("for-admin")]
+    [Authorize("AdminRole")]
+    public IEnumerable<WeatherForecast> GetForAdmin()
     {
         using (base.BeginLoggingScope())
         {
