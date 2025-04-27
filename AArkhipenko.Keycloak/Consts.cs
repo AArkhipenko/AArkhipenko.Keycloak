@@ -1,6 +1,4 @@
-﻿using AArkhipenko.Keycloak.Models;
-
-namespace AArkhipenko.Keycloak
+﻿namespace AArkhipenko.Keycloak
 {
     /// <summary>
     /// Константы

@@ -2,6 +2,28 @@
 
 Nuget-проект с настройками для работы с keycloak
 
+## Методы расширения
+
+Все методы расширения находятся [здесь](./AArkhipenko.Keycloak/KeycloakExtension.cs)
+
+### Настройка для работы с Keycloak
+
+Подключение:
+```C#
+var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddControllers();
+// Добавление работы с Keycloak
+builder.Services.AddKeycloakAuth(builder.Configuration);
+...
+var app = builder.Build();
+app.UseAuthorization();
+...
+app.MapControllers();
+
+app.Run();
+```
+
 ## Раздел с настройками
 
 Для конфигурирования программы для работы с keycloak, провайдер настроек должен иметься раздел с настройками следующего вида:
