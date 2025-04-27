@@ -1,7 +1,6 @@
 ﻿using AArkhipenko.Core.Exceptions;
 using Newtonsoft.Json;
 using System.Security.Claims;
-using System.Text.Json.Serialization;
 
 namespace AArkhipenko.Keycloak.Models
 {

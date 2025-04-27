@@ -1,7 +1,6 @@
 ﻿using AArkhipenko.Core.Exceptions;
 using AArkhipenko.Keycloak.Models;
 using Microsoft.AspNetCore.Authorization;
-using Newtonsoft.Json;
 
 namespace AArkhipenko.Keycloak.Authority
 {
