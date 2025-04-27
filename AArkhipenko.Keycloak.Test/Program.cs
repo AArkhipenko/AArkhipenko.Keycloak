@@ -5,7 +5,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllers();
-// Добавление логирования в консоль
+// Добавление работы с Keycloak
 builder.Services.AddKeycloakAuth(builder.Configuration);
 
 var app = builder.Build();
