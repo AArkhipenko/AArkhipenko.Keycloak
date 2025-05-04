@@ -1,6 +1,6 @@
 ﻿using AArkhipenko.Core.Exceptions;
-using AArkhipenko.Keycloak.Models;
 using Microsoft.AspNetCore.Authorization;
+using System.Security.Claims;
 
 namespace AArkhipenko.Keycloak.Authority
 {
@@ -14,15 +14,13 @@ namespace AArkhipenko.Keycloak.Authority
 		{
 			try
 			{
-				var tokenModel = TokenModel.Map(context.User.Claims);
+				if (!context.User.HasClaim(x => x.Type == ClaimTypes.System &&
+					x.Value == policy.ServiceName))
+                {
+                    throw new AuthorizationException("Пользователь не имеет достпа к системе");
+                }
 
-				if (!tokenModel.Audiences.Contains(policy.ServiceName) ||
-                    !tokenModel.Resources.TryGetValue(policy.ServiceName, out var resourceModel))
-				{
-					throw new AuthorizationException("Нет доступа к сервису");
-				}
-
-                if (!resourceModel.Roles.Contains(policy.RoleName))
+                if (!context.User.IsInRole(policy.RoleName))
 				{
 					throw new AuthorizationException("Пользователь не имеет необходимых ролей");
 				}
