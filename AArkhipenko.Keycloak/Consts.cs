@@ -3,14 +3,25 @@
     /// <summary>
     /// Константы
     /// </summary>
-    internal class Consts
+    public class Consts
     {
         /// <summary>
         /// Раздел в настройках, в котором хранятся все настройки для работы с keycloak
         /// </summary>
-        public static string KeyCloakConfigSection => "KeycloakSettings";
+        internal static string KeyCloakConfigSection => "KeycloakSettings";
 
-        public class Token
+        public class KeycloakClaim
+        {
+            /// <summary>
+            /// ИД пользователя
+            /// </summary>
+            public static string UserId => nameof(UserId);
+        }
+
+        /// <summary>
+        /// Название разделок токена keycloak
+        /// </summary>
+        internal class KeycloakToken
         {
             /// <summary>
             /// Название раздела с ИД токена

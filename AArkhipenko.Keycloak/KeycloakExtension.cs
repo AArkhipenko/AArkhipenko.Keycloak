@@ -1,5 +1,7 @@
 ﻿using AArkhipenko.Keycloak.Authority;
 using AArkhipenko.Keycloak.Configuration;
+using AArkhipenko.Keycloak.Helpers;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.Extensions.Configuration;
@@ -17,11 +19,11 @@ namespace AArkhipenko.Keycloak
 		/// Добавление возможности работы с keycloak
 		/// </summary>
 		/// <param name="services"><see cref="IServiceCollection"/></param>
-		/// <param name="configs"><see cref="ConfigurationManager"/></param>
+		/// <param name="configs"><see cref="IConfiguration"/></param>
 		/// <returns><see cref="IServiceCollection"/></returns>
-		public static IServiceCollection AddKeycloakAuth(this IServiceCollection services, ConfigurationManager configs)
+		public static IServiceCollection AddKeycloakAuth(this IServiceCollection services, IConfiguration configs)
         {
-            var keycloakSettings = configs.GetSection(Consts.KeyCloakConfigSection).Get<KeycloakSettings>();
+            var keycloakSettings = configs.GetRequiredSection(Consts.KeyCloakConfigSection).Get<KeycloakSettings>();
             if (keycloakSettings is null)
             {
                 throw new ApplicationException("Не найден раздел с настройками для работы с keycloak");
@@ -57,7 +59,9 @@ namespace AArkhipenko.Keycloak
                 }
             });
 
-            services.AddTransient<IAuthorizationHandler, RoleAccessHandler>();
+            services
+                .AddScoped<IAuthorizationHandler, RoleAccessHandler>()
+                .AddScoped<IClaimsTransformation, CustomClaimsTransformation>();
 
             return services;
         }
