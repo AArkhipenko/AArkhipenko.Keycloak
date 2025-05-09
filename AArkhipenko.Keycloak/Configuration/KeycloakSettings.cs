@@ -5,7 +5,7 @@ namespace AArkhipenko.Keycloak.Configuration
     /// <summary>
 	/// Найстройки для конфигурирования работы с keycloak
 	/// </summary>
-	public class KeycloakSettings
+	internal class KeycloakSettings
     {
         /// <summary>
         /// Адрес авторизации
@@ -45,9 +45,9 @@ namespace AArkhipenko.Keycloak.Configuration
         public IEnumerable<string> ValidAudiences { get; set; } = Enumerable.Empty<string>();
 
         /// <summary>
-        /// <inheritdoc cref="Configuration.ServiceSettings" path="/summary"/>
+        /// <inheritdoc cref="ServiceObject" path="/summary"/>
         /// </summary>
         [Required(ErrorMessage = "Обязательно к заполнению")]
-        public required ServiceSettings ServiceSettings { get; set; }
+        public required ServiceObject ServiceSettings { get; set; }
     }
 }
