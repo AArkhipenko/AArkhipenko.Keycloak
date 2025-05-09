@@ -4,6 +4,7 @@ using AArkhipenko.Keycloak.Helpers;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Authorization.Policy;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
@@ -61,6 +62,7 @@ namespace AArkhipenko.Keycloak
 
             services
                 .AddScoped<IAuthorizationHandler, RoleAccessHandler>()
+                .AddSingleton<IAuthorizationMiddlewareResultHandler, CustomAuthMiddlewareResultHandler>()
                 .AddScoped<IClaimsTransformation, CustomClaimsTransformation>();
 
             return services;

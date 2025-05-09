@@ -5,7 +5,7 @@ namespace AArkhipenko.Keycloak.Configuration
     /// <summary>
 	/// Настройки конкретного сервиса
 	/// </summary>
-	public class ServiceSettings
+	internal class ServiceObject
     {
         /// <summary>
         /// Наименование сервиса, к которому у пользователя должен быть доступ
