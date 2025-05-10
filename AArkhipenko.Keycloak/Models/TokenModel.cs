@@ -59,14 +59,14 @@ namespace AArkhipenko.Keycloak.Models
         {
             var keys = new[]
             {
-                Consts.Token.Id,
-                Consts.Token.Issuer,
-                Consts.Token.Audiences,
-                Consts.Token.UserId,
-                Consts.Token.ResourceAccess,
-                Consts.Token.Name,
-                Consts.Token.SurName,
-                Consts.Token.Email
+                Consts.KeycloakToken.Id,
+                Consts.KeycloakToken.Issuer,
+                Consts.KeycloakToken.Audiences,
+                Consts.KeycloakToken.UserId,
+                Consts.KeycloakToken.ResourceAccess,
+                Consts.KeycloakToken.Name,
+                Consts.KeycloakToken.SurName,
+                Consts.KeycloakToken.Email
             };
 
             var errors = keys.Select(x =>
@@ -86,16 +86,16 @@ namespace AArkhipenko.Keycloak.Models
 
             return new TokenModel()
             {
-                Id = claims.First(x => x.Type == Consts.Token.Id).Value,
-                Issuer = claims.First(x => x.Type == Consts.Token.Issuer).Value,
-                Audiences = claims.Where(x => x.Type == Consts.Token.Audiences)
+                Id = claims.First(x => x.Type == Consts.KeycloakToken.Id).Value,
+                Issuer = claims.First(x => x.Type == Consts.KeycloakToken.Issuer).Value,
+                Audiences = claims.Where(x => x.Type == Consts.KeycloakToken.Audiences)
                     .Select(x => x.Value),
-                UserId = claims.First(x => x.Type == Consts.Token.UserId).Value,
+                UserId = claims.First(x => x.Type == Consts.KeycloakToken.UserId).Value,
                 Resources = JsonConvert.DeserializeObject<Dictionary<string, ResourceModel>>(
-                    claims.First(x => x.Type == Consts.Token.ResourceAccess).Value),
-                Name = claims.First(x => x.Type == Consts.Token.Name).Value,
-                SurName = claims.First(x => x.Type == Consts.Token.SurName).Value,
-                Email = claims.First(x => x.Type == Consts.Token.Email).Value,
+                    claims.First(x => x.Type == Consts.KeycloakToken.ResourceAccess).Value),
+                Name = claims.First(x => x.Type == Consts.KeycloakToken.Name).Value,
+                SurName = claims.First(x => x.Type == Consts.KeycloakToken.SurName).Value,
+                Email = claims.First(x => x.Type == Consts.KeycloakToken.Email).Value,
             };
         }
     }

@@ -5,7 +5,7 @@ namespace AArkhipenko.Keycloak.Configuration
     /// <summary>
 	/// Модель роли
 	/// </summary>
-	public class RoleObject
+	internal class RoleObject
     {
         /// <summary>
         /// Ключ роли

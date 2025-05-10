@@ -1,6 +1,8 @@
+using AArkhipenko.Core.Exceptions;
 using AArkhipenko.Core.Logging;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 
 namespace AArkhipenko.Keycloak.Test.Controllers;
 
@@ -25,7 +27,7 @@ public class WeatherForecastController : LoggingControllerBase
     {
         using (base.BeginLoggingScope())
         {
-            base.Logger.LogInformation("Get");
+            base.Logger.LogInformation("GetForUser");
             return GetArray();
         }
     }
@@ -36,8 +38,24 @@ public class WeatherForecastController : LoggingControllerBase
     {
         using (base.BeginLoggingScope())
         {
-            base.Logger.LogInformation("Get");
+            base.Logger.LogInformation("GetForAdmin");
             return GetArray();
+        }
+    }
+
+    [HttpGet("user-id")]
+    [Authorize]
+    public string? GetUserId()
+    {
+        using (base.BeginLoggingScope())
+        {
+            base.Logger.LogInformation("GetUserId");
+            if(!HttpContext.User.HasClaim(x => x.Type == Consts.KeycloakClaim.UserId))
+            {
+                throw new NotFoundException(Consts.KeycloakClaim.UserId);
+            }
+
+            return HttpContext.User.FindFirstValue(Consts.KeycloakClaim.UserId);
         }
     }
 
